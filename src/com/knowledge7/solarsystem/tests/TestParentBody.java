@@ -1,0 +1,94 @@
+package com.knowledge7.solarsystem.tests;
+
+/***************************************************************************
+ *   Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
+
+import com.knowledge7.solarsystem.model.Body;
+import com.knowledge7.solarsystem.model.ParentBody;
+import junit.framework.*;
+
+/**
+ * This is the unit tests (using the JUnit Framework) of NaturalBody
+ */
+
+public class TestParentBody extends TestCase {
+    private ParentBody sun = null;
+
+    public void setUp() {
+        sun = new ParentBody("Sun", 1000);
+    }
+
+    public void testParentBody() {
+        assertTrue(sun != null);
+    }
+
+    public void testGetName() {
+        assertTrue(sun.getName().equals("Sun"));
+    }
+
+    public void testAdd() {
+        assertTrue(sun.add(new Body("Earth", 100)));
+    }
+
+    public void testGetDescription() {
+        assertTrue(sun.getDescription().equals("Sun( )"));
+
+        sun.add(new Body("Earth", 100));
+        assertTrue(sun.getDescription().equals("Sun( Earth )"));
+
+        setUp();
+
+        sun.add(new ParentBody("Earth", 100));
+        assertTrue(sun.getDescription().equals("Sun( Earth( ) )"));
+    }
+
+    public void testGetTotalMass() {
+        assertTrue(sun.getTotalMass() == 1000);
+
+        sun.add(new Body("Earth", 100));
+        assertTrue(sun.getTotalMass() == 1100);
+
+        setUp();
+
+        sun.add(new ParentBody("Earth", 100));
+        assertTrue(sun.getTotalMass() == 1100);
+    }
+
+    public void testRemoveNotExisting() {
+        assertFalse(sun.remove("Earth"));
+    }
+
+    public void testRemoveExisting() {
+        sun.add(new Body("Earth", 100));
+
+        assertTrue(sun.remove("Earth"));
+    }
+
+    public void testRemoveExistingFromMany() {
+        sun.add(new Body("Venus", 100));
+        sun.add(new Body("Earth", 100));
+        sun.add(new Body("Mars", 100));
+
+        assertTrue(sun.remove("Earth"));
+    }
+
+    public static TestSuite suite() {
+        return new TestSuite(TestParentBody.class);
+    }
+}

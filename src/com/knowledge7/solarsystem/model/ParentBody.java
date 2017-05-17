@@ -1,3 +1,5 @@
+package com.knowledge7.solarsystem.model;
+
 /***************************************************************************
  *   Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
  *                                                                         *
@@ -26,7 +28,7 @@ import java.util.Iterator;
  * bodies orbiting around them (for instance, the moon orbits the earth). Those
  * "children" are kept in a linked list (meaning that there is no limitation on
  * the number of children) Normally, this class should have been abstract but we
- * want to unit-test it.
+ * want to unit-tests it.
  */
 
 public class ParentBody extends Body
@@ -61,8 +63,8 @@ public class ParentBody extends Body
 
         String description = getName() + "( ";
 
-        for (Body body : orbitingBodies) {
-        	description += body.getDescription() + " ";
+        for (Body orbitingBody : orbitingBodies) {
+        	description += orbitingBody.getDescription() + " ";
         }
 
         description = description + ")";
@@ -75,13 +77,13 @@ public class ParentBody extends Body
      */
     public double getTotalMass()
     {
-        double masse = getMass();
+        double totalMass = getMass();
 
         for (Body body : orbitingBodies) {
-            masse += body.getTotalMass();
+            totalMass += body.getTotalMass();
         }
 
-        return masse;
+        return totalMass;
     }
 
     /**
@@ -89,11 +91,9 @@ public class ParentBody extends Body
      * body (either directly or indirectly) with a specific name
      * 
      * @param name is the name to fing
-     * @return a reference on the natural body having this name
-     * @throws NonExistingException if the name is not found
+     * @return a reference on the natural body having this name, null if none found
      */
     public ParentBody getReferenceOnOrbitingNaturalBody(String name)
-            throws NonExistingException
     {
         // are we looking for ourselves?
         if (getName().equals(name))
@@ -104,41 +104,38 @@ public class ParentBody extends Body
 
             // We look only at natural bodies (or objects of derived classes)
             if (body instanceof ParentBody) {
-                try {
-                    return ((ParentBody) body)
-                            .getReferenceOnOrbitingNaturalBody(name);
+                ParentBody orbitingNaturalBody = ((ParentBody) body).getReferenceOnOrbitingNaturalBody(name);
+
+                if (orbitingNaturalBody != null) {
+                    // We have found one which matches
+                    return orbitingNaturalBody;
                 }
 
-                catch (NonExistingException e) {
-                    // if there is an exception here, it means that the current
-                    // child is not the one we are looking for.
-                    // We move to the next child.
-                }
+                // Otherwise, we move to the next child
             }
         }
 
-        // Here, we know that the about 'return' statement has not been executed
-        // and so, the name does not exist
-        throw new NonExistingException();
+        // Here, we know that the name does not exist
+        return null;
     }
 
-    public void add(Body aBody) throws ExistingException
+    public boolean add(Body aBody)
     {
-        String nameToAdd = aBody.getName();
+        String nameOfBodyToAdd = aBody.getName();
 
         // Do we already have something with the same name orbiting?
-        for (Body body : orbitingBodies) {
-            String name = body.getName();
-
-            if (nameToAdd.equals(name))
-                throw new ExistingException();
+        for (Body orbitingBody : orbitingBodies) {
+            if (orbitingBody.getName().equals(nameOfBodyToAdd))
+                return false;
         }
 
         // No. So we can add the specified body to the list of bodies
         orbitingBodies.add(aBody);
+
+        return true;
     }
 
-    public void remove(String name) throws NonExistingException
+    public boolean remove(String name)
     {
         Iterator<Body> i = orbitingBodies.iterator();
 
@@ -148,12 +145,12 @@ public class ParentBody extends Body
                 // stop our search because we know that a name cannot
                 // appear twice (or more)
                 i.remove();
-                return;
+                return true;
             }
         }
 
         // Here, we know that no body with that name exist
-        throw new NonExistingException();
+        return false;
     }
 
     /** this list contains all orbiting bodies around this natural body */

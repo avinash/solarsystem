@@ -1,3 +1,5 @@
+package com.knowledge7.solarsystem.model;
+
 /***************************************************************************
  *   Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
  *                                                                         *
@@ -17,47 +19,19 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-import junit.framework.*;
-
 /**
- * This is the unit test (using the JUnit Framework) of Body
+ * A natural satellite is something like the Moon i.e. it's something natural
+ * orbiting a planet
  */
 
-public class TestBody extends TestCase
+public class Satellite extends ParentBody
 {
-	private Body sun = null;
-	
-	public void setUp()
-	{
-		sun = new Body("Sun", 1000);
-	}
-    public void testBody()
+    /**
+     * @param name is the name of the natural satellite
+     * @param mass is the mass (in kg) of the natural satellite
+     */
+    public Satellite(String name, double mass)
     {
-        assertTrue(sun != null);
-    }
-
-    public void testGetName()
-    {
-        assertTrue(sun.getName().equals("Sun"));
-    }
-
-    public void testGetDescription()
-    {
-        assertTrue(sun.getDescription().equals("Sun"));
-    }
-
-    public void testGetMass()
-    {
-        assertTrue(sun.getMass() == 1000);
-    }
-
-    public void testGetTotalMass()
-    {
-        assertTrue(sun.getTotalMass() == 1000);
-    }
-
-    public static TestSuite suite()
-    {
-        return new TestSuite(TestBody.class);
+        super(name, mass);
     }
 }

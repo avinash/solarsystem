@@ -1,3 +1,5 @@
+package com.knowledge7.solarsystem.app;
+
 /***************************************************************************
  *   Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
  *                                                                         *
@@ -16,6 +18,8 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
+import com.knowledge7.solarsystem.model.*;
 
 import java.io.IOException;
 
@@ -158,14 +162,6 @@ public class TextUserInterface
             catch (NumberFormatException e) {
                 // if the user does not enter a number
             }
-
-            catch (ExistingException e) {
-                // the user has tried to add the same body twice
-
-                System.out.println();
-                System.out.println("ERROR! This body already exists");
-                System.out.println();
-            }
         }
     }
 
@@ -179,19 +175,17 @@ public class TextUserInterface
             System.out.print("Name ? ");
             String name = getStringFromUser();
 
-            currentNaturalBody.remove(name);
+            if (!currentNaturalBody.remove(name)) {
+                // the name has not been found
+
+                System.out.println();
+                System.out.println("ERROR! This name does not exist");
+                System.out.println();
+            }
         }
 
         catch (IOException e) {
             // might be a problem with the keyboard
-        }
-
-        catch (NonExistingException e) {
-            // the name has not been found
-
-            System.out.println();
-            System.out.println("ERROR! This name does not exist");
-            System.out.println();
         }
     }
 
@@ -208,20 +202,23 @@ public class TextUserInterface
 
             // Now, we see why we need to keep a reference on the top-most body
             // It's for getReferenceOnOrbitingNaturalBody!!!
-            currentNaturalBody = topMostNaturalBody
-                    .getReferenceOnOrbitingNaturalBody(name);
+            ParentBody reference = topMostNaturalBody.getReferenceOnOrbitingNaturalBody(name);
+
+            if (reference != null) {
+                // the parent body has been found -- let us make it current
+                currentNaturalBody = reference;
+            }
+            else
+            {
+                // this name has not been found - and we have been looking from the sun!
+                System.out.println();
+                System.out.println("ERROR: This name cannot be found");
+                System.out.println();
+            }
         }
 
         catch (IOException e) {
             // problem with keyboard
-        }
-
-        catch (NonExistingException e) {
-            // this name has not been found - and we have been looking from the
-            // sun!
-            System.out.println();
-            System.out.println("ERROR: This name cannot be found");
-            System.out.println();
         }
     }
 

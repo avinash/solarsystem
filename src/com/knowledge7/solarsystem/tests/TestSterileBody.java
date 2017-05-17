@@ -1,5 +1,5 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
+package com.knowledge7.solarsystem.tests; /***************************************************************************
+ Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,19 +17,49 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+import com.knowledge7.solarsystem.model.SterileBody;
+import junit.framework.*;
+
 /**
- * A natural satellite is something like the Moon i.e. it's something natural
- * orbiting a planet
+ * This is the unit tests (using the JUnit Framework) of ArtificialBody
  */
 
-public class Satellite extends ParentBody
+public class TestSterileBody extends TestCase
 {
-    /**
-     * @param name is the name of the natural satellite
-     * @param mass is the mass (in kg) of the natural satellite
-     */
-    public Satellite(String name, double mass)
+	private SterileBody hubble = null;
+	
+	public void setUp()
+	{
+		hubble = new SterileBody("Hubble", 10);
+	}
+	
+    public void testSterileBody()
     {
-        super(name, mass);
+        assertTrue(hubble != null);
+    }
+
+    public void testGetName()
+    {
+        assertTrue(hubble.getName().equals("Hubble"));
+    }
+
+    public void testGetDescription()
+    {
+        assertTrue(hubble.getDescription().equals("Hubble"));
+    }
+
+    public void testGetMass()
+    {
+        assertTrue(hubble.getMass() == 10);
+    }
+
+    public void testGetTotalMass()
+    {
+        assertTrue(hubble.getTotalMass() == 10);
+    }
+
+    public static TestSuite suite()
+    {
+        return new TestSuite(TestSterileBody.class);
     }
 }

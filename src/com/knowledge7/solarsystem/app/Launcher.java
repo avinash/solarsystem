@@ -1,3 +1,5 @@
+package com.knowledge7.solarsystem.app;
+
 /***************************************************************************
  *   Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
  *                                                                         *
@@ -18,47 +20,16 @@
  ***************************************************************************/
 
 /**
- * This class is the base class of the whole class hierarchy of celestial
- * bodies. Most of the basic capabilities of those bodies are defined here. Note
- * that, normally, this class should be abstract but as it is unit tested,
- * objects need to be instanciated from it.
+ * This is the main application. As you can see, it's very short: an object is
+ * instanciated and a message is sent to it. This is OO at work :-)
  */
 
-public class Body
+public class Launcher
 {
-    /**
-     * @param name is the name of the body
-     * @param mass is the mass (in kg) of the body
-     */
-    public Body(String name, double mass)
+    public static void main(String[] args)
     {
-        this.name = name;
-        this.mass = mass;
+        TextUserInterface tui = new TextUserInterface();
+
+        tui.start();
     }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public String getDescription()
-    {
-        return name;
-    }
-
-    public double getMass()
-    {
-        return mass;
-    }
-
-    public double getTotalMass()
-    {
-        return mass;
-    }
-
-    /** the name of the body */
-    private String name;
-
-    /** the mass (in kg) of the body */
-    private double mass;
 }

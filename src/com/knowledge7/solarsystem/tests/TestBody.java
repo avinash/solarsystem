@@ -1,3 +1,5 @@
+package com.knowledge7.solarsystem.tests;
+
 /***************************************************************************
  *   Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
  *                                                                         *
@@ -17,12 +19,48 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+import com.knowledge7.solarsystem.model.Body;
+import junit.framework.*;
+
 /**
- * This exception is thrown when the user tries to add an already present body
- * to a natural body (i.e. when adding the moon twice around the earth)
+ * This is the unit tests (using the JUnit Framework) of com.knowledge7.solarsystem.model.Body
  */
 
-public class ExistingException extends Exception
+public class TestBody extends TestCase
 {
-    private static final long serialVersionUID = 365184922808462806L;
+	private Body sun = null;
+	
+	public void setUp()
+	{
+		sun = new Body("Sun", 1000);
+	}
+    public void testBody()
+    {
+        assertTrue(sun != null);
+    }
+
+    public void testGetName()
+    {
+        assertTrue(sun.getName().equals("Sun"));
+    }
+
+    public void testGetDescription()
+    {
+        assertTrue(sun.getDescription().equals("Sun"));
+    }
+
+    public void testGetMass()
+    {
+        assertTrue(sun.getMass() == 1000);
+    }
+
+    public void testGetTotalMass()
+    {
+        assertTrue(sun.getTotalMass() == 1000);
+    }
+
+    public static TestSuite suite()
+    {
+        return new TestSuite(TestBody.class);
+    }
 }

@@ -1,3 +1,5 @@
+package com.knowledge7.solarsystem.model;
+
 /***************************************************************************
  *   Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
  *                                                                         *
@@ -18,11 +20,17 @@
  ***************************************************************************/
 
 /**
- * This exception is thrown when the user tries to delete a body which does not
- * exist
+ * A planet orbits a star
  */
 
-public class NonExistingException extends Exception
+public class Planet extends ParentBody
 {
-    private static final long serialVersionUID = 3730773523682681603L;
+    /**
+     * @param name is the name of the planet
+     * @param mass is the mass (in kg) of the planet
+     */
+    public Planet(String name, double mass)
+    {
+        super(name, mass);
+    }
 }

@@ -1,3 +1,5 @@
+package com.knowledge7.solarsystem.model;
+
 /***************************************************************************
  *   Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
  *                                                                         *
@@ -18,19 +20,47 @@
  ***************************************************************************/
 
 /**
- * Objects of this class (and derived classes) cannot have orbiting bodies
- * around them. This class should also have been made abstract but it needs to
- * be unit tested.
+ * This class is the base class of the whole class hierarchy of celestial
+ * bodies. Most of the basic capabilities of those bodies are defined here. Note
+ * that, normally, this class should be abstract but as it is unit tested,
+ * objects need to be instanciated from it.
  */
 
-public class SterileBody extends Body
+public class Body
 {
     /**
-     * @param name the name of the artificial body
-     * @param mass the mass (in kg) of the artificial body
+     * @param name is the name of the body
+     * @param mass is the mass (in kg) of the body
      */
-    public SterileBody(String name, double mass)
+    public Body(String name, double mass)
     {
-        super(name, mass);
+        this.name = name;
+        this.mass = mass;
     }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getDescription()
+    {
+        return name;
+    }
+
+    public double getMass()
+    {
+        return mass;
+    }
+
+    public double getTotalMass()
+    {
+        return mass;
+    }
+
+    /** the name of the body */
+    private String name;
+
+    /** the mass (in kg) of the body */
+    private double mass;
 }

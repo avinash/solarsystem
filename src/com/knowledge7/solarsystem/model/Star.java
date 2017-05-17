@@ -1,5 +1,7 @@
+package com.knowledge7.solarsystem.model;
+
 /***************************************************************************
- Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
+ *   Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,48 +19,19 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-import junit.framework.*;
-
 /**
- * This is the unit test (using the JUnit Framework) of ArtificialBody
+ * A star is something like our own sun i.e. a celestial body with an ongoing
+ * thermonuclear reaction in its core
  */
 
-public class TestSterileBody extends TestCase
+public class Star extends ParentBody
 {
-	private SterileBody hubble = null;
-	
-	public void setUp()
-	{
-		hubble = new SterileBody("Hubble", 10);
-	}
-	
-    public void testSterileBody()
+    /**
+     * @param name is the name of the star
+     * @param mass is the mass (in kg) of the star
+     */
+    public Star(String name, double mass)
     {
-        assertTrue(hubble != null);
-    }
-
-    public void testGetName()
-    {
-        assertTrue(hubble.getName().equals("Hubble"));
-    }
-
-    public void testGetDescription()
-    {
-        assertTrue(hubble.getDescription().equals("Hubble"));
-    }
-
-    public void testGetMass()
-    {
-        assertTrue(hubble.getMass() == 10);
-    }
-
-    public void testGetTotalMass()
-    {
-        assertTrue(hubble.getTotalMass() == 10);
-    }
-
-    public static TestSuite suite()
-    {
-        return new TestSuite(TestSterileBody.class);
+        super(name, mass);
     }
 }

@@ -1,3 +1,5 @@
+package com.knowledge7.solarsystem.model;
+
 /***************************************************************************
  *   Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
  *                                                                         *
@@ -18,16 +20,19 @@
  ***************************************************************************/
 
 /**
- * This is the main application. As you can see, it's very short: an object is
- * instanciated and a message is sent to it. This is OO at work :-)
+ * Objects of this class (and derived classes) cannot have orbiting bodies
+ * around them. This class should also have been made abstract but it needs to
+ * be unit tested.
  */
 
-public class Application
+public class SterileBody extends Body
 {
-    public static void main(String[] args)
+    /**
+     * @param name the name of the artificial body
+     * @param mass the mass (in kg) of the artificial body
+     */
+    public SterileBody(String name, double mass)
     {
-        TextUserInterface tui = new TextUserInterface();
-
-        tui.start();
+        super(name, mass);
     }
 }

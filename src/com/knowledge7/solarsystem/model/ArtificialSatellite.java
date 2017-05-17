@@ -1,3 +1,5 @@
+package com.knowledge7.solarsystem.model;
+
 /***************************************************************************
  *   Copyright (C) 2005 by Avinash Meetoo - avinash@uom.ac.mu              *
  *                                                                         *
@@ -18,17 +20,17 @@
  ***************************************************************************/
 
 /**
- * A star is something like our own sun i.e. a celestial body with an ongoing
- * thermonuclear reaction in its core
+ * Objects of this class represent real artificial satellites and cannot, of
+ * course, have orbiting bodies.
  */
 
-public class Star extends ParentBody
+public class ArtificialSatellite extends SterileBody
 {
     /**
-     * @param name is the name of the star
-     * @param mass is the mass (in kg) of the star
+     * @param name is the name of the satellite
+     * @param mass is the mass (in kg) of the satellite
      */
-    public Star(String name, double mass)
+    public ArtificialSatellite(String name, double mass)
     {
         super(name, mass);
     }
